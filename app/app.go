@@ -2,34 +2,48 @@ package app
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/MumAroi/discord-bot-basic/config"
+	"github.com/MumAroi/discord-bot-basic/models"
+	"github.com/MumAroi/discord-bot-basic/routes"
 	"github.com/bwmarrin/discordgo"
-	"github.com/joho/godotenv"
+)
+
+var (
+	BOTTOKEN string
+	PREFIX   string
 )
 
 func init() {
-	if err := godotenv.Load(); err != nil {
-		log.Print("sad .env file found")
-	}
+	_config := config.LoadConfig()
+	BOTTOKEN = _config.BotToken
+	PREFIX = _config.Prefix
 }
 
 func Run() {
 
-	_config := config.LoadConfig()
-
-	dg, err := discordgo.New("Bot " + _config.BotToken)
+	dg, err := discordgo.New("Bot " + BOTTOKEN)
 
 	if err != nil {
 		fmt.Println("error creating Discord session,", err)
 		return
 	}
 
-	dg.Identify.Intents = discordgo.IntentsGuildMessages
+	usr, err := dg.User("@me")
+	if err != nil {
+		fmt.Println("Error obtaining account details,", err)
+		return
+	}
+
+	botId := usr.ID
+
+	commands := routes.RegisterCommands()
+	commandHandler := models.NewHandler(PREFIX, botId, commands)
+
+	dg.AddHandler(commandHandler.GetHandlers)
 
 	err = dg.Open()
 

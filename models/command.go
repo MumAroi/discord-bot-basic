@@ -1,4 +1,4 @@
-package helpers
+package models
 
 type (
 	Command func(Context)

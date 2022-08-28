@@ -1,11 +1,21 @@
 package config
 
-import "os"
+import (
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 type Config struct {
-	Prefix   string `json:"prefix"`
-	BotToken string `json:"bot_token"`
-	OwnerId  string `json:"owner_id"`
+	Prefix   string
+	BotToken string
+}
+
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Print("sad .env file found")
+	}
 }
 
 func LoadConfig() *Config {
