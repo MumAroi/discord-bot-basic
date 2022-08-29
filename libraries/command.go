@@ -1,4 +1,4 @@
-package models
+package libraries
 
 type (
 	Command func(Context)

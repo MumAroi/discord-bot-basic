@@ -2,11 +2,11 @@ package routes
 
 import (
 	"github.com/MumAroi/discord-bot-basic/handlers"
-	"github.com/MumAroi/discord-bot-basic/models"
+	"github.com/MumAroi/discord-bot-basic/libraries"
 )
 
-func RegisterCommands() *models.CommandHandler {
-	commands := models.NewCommandHandler()
+func RegisterCommands() *libraries.CommandHandler {
+	commands := libraries.NewCommandHandler()
 	commands.Register("pingpong", handlers.PingPong, "Ping Pong!")
 	return commands
 }

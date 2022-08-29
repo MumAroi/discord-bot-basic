@@ -7,7 +7,7 @@ import (
 	"syscall"
 
 	"github.com/MumAroi/discord-bot-basic/config"
-	"github.com/MumAroi/discord-bot-basic/models"
+	"github.com/MumAroi/discord-bot-basic/libraries"
 	"github.com/MumAroi/discord-bot-basic/routes"
 	"github.com/bwmarrin/discordgo"
 )
@@ -41,7 +41,7 @@ func Run() {
 	botId := usr.ID
 
 	commands := routes.RegisterCommands()
-	commandHandler := models.NewHandler(PREFIX, botId, commands)
+	commandHandler := libraries.NewHandler(PREFIX, botId, commands)
 
 	dg.AddHandler(commandHandler.GetHandlers)
 

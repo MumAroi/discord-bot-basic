@@ -3,10 +3,10 @@ package handlers
 import (
 	"fmt"
 
-	"github.com/MumAroi/discord-bot-basic/models"
+	"github.com/MumAroi/discord-bot-basic/libraries"
 )
 
-func PingPong(ctx models.Context) {
+func PingPong(ctx libraries.Context) {
 
 	// if len(ctx.Args) == 0 {
 	// 	ctx.Reply("Add command usage")
