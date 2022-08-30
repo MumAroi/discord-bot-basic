@@ -8,5 +8,6 @@ import (
 func RegisterCommands() *libraries.CommandHandler {
 	commands := libraries.NewCommandHandler()
 	commands.Register("pingpong", handlers.PingPong, "Ping Pong!")
+	commands.Register("widget", handlers.WidgetDemo, "Widget!")
 	return commands
 }
